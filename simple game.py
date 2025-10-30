@@ -1,4 +1,5 @@
 import random
+import os
 
 # Game introduction
 print("=" * 40)
@@ -22,7 +23,21 @@ elif difficulty == "hard":
 else:
     max_num = 100  # Default is medium
 
-# Generate random number based on difficulty
+# Load best score (if it exists)
+score_file = "score.txt"
+best_score = None
+if os.path.exists(score_file):
+    with open(score_file, "r") as f:
+        content = f.read().strip()
+        if content.isdigit():
+            best_score = int(content)
+
+if best_score:
+    print(f"🏆 Current best score: {best_score} attempts")
+else:
+    print("🏆 No best score yet — be the first!")
+
+# Generate random number
 secret_number = random.randint(1, max_num)
 attempts = 0
 min_num = 1
@@ -35,7 +50,6 @@ print()
 while True:
     guess = input(f"Take a guess ({min_num}-{max_num}): ")
 
-    # Check if input is a number
     if not guess.isdigit():
         print("⚠️  Please enter a valid number!")
         continue
@@ -53,5 +67,13 @@ while True:
         print(f"🎉 You got it! The number was {secret_number}.")
         print(f"👏 It took you {attempts} tries.")
         print("=" * 40)
+
+        # Update best score if necessary
+        if best_score is None or attempts < best_score:
+            print("🏅 New best score! Saving to file...")
+            with open(score_file, "w") as f:
+                f.write(str(attempts))
+        else:
+            print(f"Your best score remains {best_score} attempts.")
         break
 
