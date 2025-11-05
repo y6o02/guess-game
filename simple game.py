@@ -16,7 +16,7 @@ def play_game():
     print("Choose your difficulty level:")
     print(Fore.GREEN + "🟢 Easy   (1–50)")
     print(Fore.YELLOW + "🟡 Medium (1–100)")
-    print(Fore.RED + "🔴 Hard   (1–200)")
+    print(Fore.RED + "🔴 Hard   (1–500)")
     print()
 
     difficulty = input("Enter difficulty (easy/medium/hard): ").lower()
@@ -24,7 +24,7 @@ def play_game():
     if difficulty == "easy":
         max_num = 50
     elif difficulty == "hard":
-        max_num = 200
+        max_num = 500
     else:
         max_num = 100  # Default medium
 
